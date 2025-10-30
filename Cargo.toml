@@ -1,0 +1,75 @@
+[package]
+name = "oxidized-patterns"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "oxidized_patterns"
+path = "src/lib.rs"
+bench = false
+
+[[bin]]
+name = "oxidized_patterns"
+path = "src/main.rs"
+bench = false
+
+[profile.dev]
+debug = true
+
+# [profile.release]
+# debug = true
+
+[features]
+dispatch_threads = []
+indirect_command_buffer = ["dispatch_threads"]
+argument_buffer = []
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[dev-dependencies]
+criterion = { version =  "0.3", features = ["async_std", "html_reports"] }
+
+[dependencies]
+env_logger = "0.11.7"
+log = "0.4.26"
+bytemuck = {version = "1.22.0", features = [ "derive", "aarch64_simd" ] }
+futures-intrusive = "0.5.0"
+objc2 = { git = "https://github.com/madsmtm/objc2.git", rev = "913d3eb73deaa8713316cf2d66ac096e3eb4af63", features = [] }
+objc2-foundation = { git = "https://github.com/madsmtm/objc2.git", rev = "913d3eb73deaa8713316cf2d66ac096e3eb4af63", features = ["default"] }
+objc2-metal = { git = "https://github.com/madsmtm/objc2.git", rev = "913d3eb73deaa8713316cf2d66ac096e3eb4af63", features = []}
+parking_lot = "0.12.3"
+pollster = "0.4.0"
+anyhow = "1.0.97"
+regex-syntax = "0.8.5"
+tracing-perfetto = "0.1.5"
+tracing-subscriber = "0.3.19"
+tracing = "0.1.41"
+regex = { version = "1.11.1", features = ["std", "perf"] }
+crossbeam-channel = "0.5.14"
+const_format = "0.2.34"
+indexmap = "2.8.0"
+block2 = { git = "https://github.com/madsmtm/objc2.git", rev = "913d3eb73deaa8713316cf2d66ac096e3eb4af63", features = [] }
+async-std = "1.13.0"
+memmap2 = "0.9.5"
+libc = "0.2.171"
+regex-automata = "0.4.9"
+rand = "0.9.0"
+pcap = "2.2.0"
+clap = { version = "4.5.4", features = ["derive"] }
+
+[lints.clippy]
+enum_glob_use = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -2 }
+nursery = { level = "warn", priority = -3 }
+module_name_repetitions = "allow"
+module_inception = "allow"
+borrowed_box = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+# TODO remove casts
+cast_possible_truncation = "allow"
+cast_precision_loss = "allow"
+cast_sign_loss = "allow"
+missing_errors_doc = "allow"
